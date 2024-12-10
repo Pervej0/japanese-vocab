@@ -1,9 +1,11 @@
+import { userRole } from "@prisma/client";
+
 export type TRegister = {
-  fullName: string;
-  designation: string;
-  employeeId: string;
+  name: string;
   email: string;
   password: string;
+  photo: string;
+  role: userRole;
 };
 
 export type TLogin = {

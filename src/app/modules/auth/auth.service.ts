@@ -3,6 +3,35 @@ import config from "../../config";
 import { JwtPayload } from "jsonwebtoken";
 import generateToken from "../../helper/generateToken";
 import prisma from "../../shared/prisma";
+import { userRole } from "@prisma/client";
+import { TRegister } from "./auth.type";
+
+export const registerUserDB = async (payload: TRegister) => {
+  payload.role = userRole.USER;
+
+  const hashPassword = await bcrypt.hash(
+    payload.password,
+    Number(config.SALT_ROUND) as number
+  );
+
+  const modifiedObj = { ...payload };
+  modifiedObj.password = hashPassword;
+
+  const user = await prisma.user.create({
+    data: modifiedObj,
+    select: {
+      id: true,
+      name: true,
+      role: true,
+      email: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  console.log(user, "ppp");
+  return user;
+};
 
 export const loginUserDB = async (payload: {
   email: string;
