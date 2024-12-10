@@ -1,6 +1,7 @@
 import { Server } from "http";
 import app from "./app";
-const PORT = 5000;
+import config from "./app/config";
+const PORT = config.PORT || 5000;
 
 let server: Server;
 const main = async () => {
