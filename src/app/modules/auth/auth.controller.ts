@@ -20,8 +20,7 @@ export const allUsers: RequestHandler = asyncCatch(async (req: any, res) => {
 });
 
 export const updateUser: RequestHandler = asyncCatch(async (req: any, res) => {
-  console.log(req.body, "ppp");
-  const result = await updateUserDB(req.param.userId, req.body);
+  const result = await updateUserDB(req.params.userId, req.body);
   sendResponse(res, {
     statusCode: StatusCodes.CREATED,
     message: "User role updated successfully",

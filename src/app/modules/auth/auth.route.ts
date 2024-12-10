@@ -12,7 +12,7 @@ import { userValidationSchema } from "./auth.validation";
 const router = express.Router();
 
 router.post("/users", loginUser);
-router.put("/users/update/:userId", auth(userRole.ADMIN), updateUser);
+router.put("/users/update/:userId", updateUser);
 router.post("/login", loginUser);
 router.post("/register", validationChecker(userValidationSchema), registerUser);
 

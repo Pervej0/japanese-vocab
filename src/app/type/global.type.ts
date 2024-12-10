@@ -11,6 +11,17 @@ export type TJsonData<T> = {
   data: T;
 };
 
+export type TErrorDetails = {
+  field: string | number;
+  message: string;
+}[];
+
+export type TCustomSimplifiedError = {
+  statusCode?: number;
+  message: string;
+  errorDetails: TErrorDetails | any;
+};
+
 export type TJwtPayload = {
   email: string;
   role: string;
