@@ -22,7 +22,7 @@ export const allUsers: RequestHandler = asyncCatch(async (req: any, res) => {
 export const updateUser: RequestHandler = asyncCatch(async (req: any, res) => {
   const result = await updateUserDB(req.params.userId, req.body);
   sendResponse(res, {
-    statusCode: StatusCodes.CREATED,
+    statusCode: StatusCodes.OK,
     message: "User role updated successfully",
     data: result,
   });

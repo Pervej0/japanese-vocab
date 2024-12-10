@@ -35,7 +35,7 @@ model Lesson {
   id           String       @id @default(uuid())
   lessonName   String
   lessonNumber Int          @unique @default(autoincrement())
-  Vocabulary   Vocabulary[]
+  vocabulary   Vocabulary[]
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 
