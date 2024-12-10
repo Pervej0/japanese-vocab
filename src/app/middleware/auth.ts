@@ -20,8 +20,6 @@ const auth = (...roles: string[]) => {
         config.ACCESS_TOKEN_SECRET as Secret
       ) as JwtPayload;
 
-      console.log(decode, "pppp");
-
       if (Object.entries(decode).length < 1) {
         throw new Error("Unauthorized Access");
       }

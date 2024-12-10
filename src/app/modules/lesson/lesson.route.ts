@@ -1,6 +1,9 @@
 import express from "express";
 import validationChecker from "../../middleware/validationChecker";
-import { lessonValidationSchema } from "./lesson.validation";
+import {
+  lessonValidationSchema,
+  lessonValidationSchemaUpdate,
+} from "./lesson.validation";
 import {
   createLesson,
   deleteLesson,
@@ -17,7 +20,7 @@ router.post(
 );
 router.put(
   "/update-lesson/:lessonId",
-  validationChecker(lessonValidationSchema),
+  validationChecker(lessonValidationSchemaUpdate),
   updateLesson
 );
 router.delete("/delete-lesson/:lessonId", deleteLesson);

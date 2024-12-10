@@ -30,7 +30,6 @@ export const registerUserDB = async (payload: TRegister) => {
     },
   });
 
-  console.log(user, "ppp");
   return user;
 };
 

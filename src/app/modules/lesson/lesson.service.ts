@@ -8,6 +8,7 @@ export const createLessonDB = async (payload: TLesson) => {
 export const getAllLessonDB = async () => {
   const lessons = await prisma.lesson.findMany({
     select: {
+      id: true,
       lessonName: true,
       lessonNumber: true,
       vocabulary: true,

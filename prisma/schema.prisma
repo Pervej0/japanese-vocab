@@ -48,10 +48,10 @@ model Vocabulary {
   pronunciation String
   whenToSay     String
   adminEmail    String
-  lessonNo      String
-  lesson        Lesson   @relation(fields: [lessonNo], references: [id])
+  lessonId      String
+  lesson        Lesson   @relation(fields: [lessonId], references: [id])
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  @@map("Vocabularies")
+  @@map("vocabularies")
 }
