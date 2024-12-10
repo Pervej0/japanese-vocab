@@ -3,8 +3,9 @@ import config from "../../config";
 import { JwtPayload } from "jsonwebtoken";
 import generateToken from "../../helper/generateToken";
 import prisma from "../../shared/prisma";
-import { userRole } from "@prisma/client";
+import { User, userRole } from "@prisma/client";
 import { TRegister } from "./auth.type";
+import { TJwtDecode } from "../../type/global.type";
 
 export const registerUserDB = async (payload: TRegister) => {
   payload.role = userRole.USER;
@@ -111,4 +112,45 @@ export const changePasswordDB = async (
   });
 
   return "updatePassword";
+};
+
+export const allUsersDB = async () => {
+  const allUser = await prisma.user.findMany({
+    select: {
+      id: true,
+      name: true,
+      role: true,
+      email: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+  return allUser;
+};
+
+export const updateUserDB = async (id: string, payload: { role: userRole }) => {
+  console.log(id, "xxxxxx");
+  const user = await prisma.user.findUniqueOrThrow({
+    where: {
+      id: Number(id),
+    },
+  });
+
+  if (payload.role === user.role) {
+    throw new Error("Change into another role");
+  }
+
+  const update = await prisma.user.update({
+    where: { id: user.id },
+    data: payload,
+    select: {
+      id: true,
+      name: true,
+      role: true,
+      email: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+  return update;
 };

@@ -1,8 +1,33 @@
 import { RequestHandler } from "express";
-import { changePasswordDB, loginUserDB, registerUserDB } from "./auth.service";
+import {
+  allUsersDB,
+  changePasswordDB,
+  loginUserDB,
+  registerUserDB,
+  updateUserDB,
+} from "./auth.service";
 import { StatusCodes } from "http-status-codes";
 import sendResponse from "../../shared/sendResponse";
 import asyncCatch from "../../shared/asyncCatch";
+
+export const allUsers: RequestHandler = asyncCatch(async (req: any, res) => {
+  const result = await allUsersDB();
+  sendResponse(res, {
+    statusCode: StatusCodes.CREATED,
+    message: "User registered successfully",
+    data: result,
+  });
+});
+
+export const updateUser: RequestHandler = asyncCatch(async (req: any, res) => {
+  console.log(req.body, "ppp");
+  const result = await updateUserDB(req.param.userId, req.body);
+  sendResponse(res, {
+    statusCode: StatusCodes.CREATED,
+    message: "User role updated successfully",
+    data: result,
+  });
+});
 
 export const registerUser: RequestHandler = asyncCatch(async (req, res) => {
   const result = await registerUserDB(req.body);
@@ -14,7 +39,6 @@ export const registerUser: RequestHandler = asyncCatch(async (req, res) => {
 });
 
 export const loginUser: RequestHandler = asyncCatch(async (req, res) => {
-  console.log(req.body, "xxxxxx");
   const result = await loginUserDB(req.body);
   res.cookie("refreshToken", result.refreshToken);
   sendResponse(res, {
