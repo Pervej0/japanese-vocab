@@ -129,10 +129,9 @@ export const allUsersDB = async () => {
 };
 
 export const updateUserDB = async (id: string, payload: { role: userRole }) => {
-  console.log(id, "xxxxxx");
   const user = await prisma.user.findUniqueOrThrow({
     where: {
-      id: Number(id),
+      id: id,
     },
   });
 

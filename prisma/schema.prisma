@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   name      String
   email     String   @unique
   photo     String
@@ -29,4 +29,29 @@ model User {
 enum userRole {
   USER
   ADMIN
+}
+
+model Lesson {
+  id           String       @id @default(uuid())
+  lessonName   String
+  lessonNumber Int          @unique @default(autoincrement())
+  Vocabulary   Vocabulary[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@map("lessons")
+}
+
+model Vocabulary {
+  id            String   @id @default(uuid())
+  word          String
+  pronunciation String
+  whenToSay     String
+  adminEmail    String
+  lessonNo      String
+  lesson        Lesson   @relation(fields: [lessonNo], references: [id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("Vocabularies")
 }
