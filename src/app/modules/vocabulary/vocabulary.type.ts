@@ -5,5 +5,6 @@ export type TVocabulary = {
   pronunciation: string;
   whenToSay: string;
   adminEmail: string;
+  lessonNo: string | any;
   lesson: any;
 };

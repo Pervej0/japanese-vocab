@@ -45,11 +45,12 @@ model Lesson {
 model Vocabulary {
   id            String   @id @default(uuid())
   word          String
+  meaning       String
   pronunciation String
   whenToSay     String
   adminEmail    String
-  lessonId      String
-  lesson        Lesson   @relation(fields: [lessonId], references: [id])
+  lessonNo      Int
+  lesson        Lesson   @relation(fields: [lessonNo], references: [lessonNumber])
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
