@@ -6,8 +6,9 @@ import prisma from "../../shared/prisma";
 import { User, userRole } from "@prisma/client";
 import { TRegister } from "./auth.type";
 import { TJwtDecode } from "../../type/global.type";
+import { uploadCloud } from "../../middleware/uploadFile";
 
-export const registerUserDB = async (payload: TRegister) => {
+export const registerUserDB = async (payload: TRegister, file: any) => {
   payload.role = userRole.USER;
 
   const hashPassword = await bcrypt.hash(
@@ -17,6 +18,10 @@ export const registerUserDB = async (payload: TRegister) => {
 
   const modifiedObj = { ...payload };
   modifiedObj.password = hashPassword;
+
+  const photoUrl = await uploadCloud(file);
+  console.log(photoUrl, "yyyyy");
+  return;
 
   const user = await prisma.user.create({
     data: modifiedObj,
