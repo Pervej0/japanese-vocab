@@ -16,6 +16,20 @@ export const getAllLessonDB = async () => {
   });
   return lessons;
 };
+export const getSingleLessonDB = async (lessonId: string) => {
+  const lessons = await prisma.lesson.findUniqueOrThrow({
+    where: {
+      id: lessonId,
+    },
+    select: {
+      id: true,
+      lessonName: true,
+      lessonNumber: true,
+      vocabulary: true,
+    },
+  });
+  return lessons;
+};
 
 export const updateLessonDB = async (lessonId: string, payload: TLesson) => {
   const lessons = await prisma.lesson.update({

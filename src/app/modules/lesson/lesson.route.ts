@@ -8,11 +8,13 @@ import {
   createLesson,
   deleteLesson,
   getAllLesson,
+  getSingleLesson,
   updateLesson,
 } from "./lesson.controller";
 const router = express.Router();
 
 router.get("/lessons", getAllLesson);
+router.get("/lessons/:lessonId", getSingleLesson);
 router.post(
   "/create-lesson",
   validationChecker(lessonValidationSchema),

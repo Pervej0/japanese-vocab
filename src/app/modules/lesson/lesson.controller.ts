@@ -6,6 +6,7 @@ import {
   createLessonDB,
   deleteLessonDB,
   getAllLessonDB,
+  getSingleLessonDB,
   updateLessonDB,
 } from "./lesson.service";
 
@@ -18,6 +19,14 @@ export const createLesson: RequestHandler = asyncCatch(async (req, res) => {
   });
 });
 
+export const getSingleLesson: RequestHandler = asyncCatch(async (req, res) => {
+  const result = await getSingleLessonDB(req.params.lessonId);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    message: "Lesson retrieved successfully",
+    data: result,
+  });
+});
 export const getAllLesson: RequestHandler = asyncCatch(async (req, res) => {
   const result = await getAllLessonDB();
   sendResponse(res, {
