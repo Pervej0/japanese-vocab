@@ -16,19 +16,18 @@ export const registerUserDB = async (payload: TRegister, file: any) => {
     Number(config.SALT_ROUND) as number
   );
 
+  const photoUrl = (await uploadCloud(file)) as any;
+
   const modifiedObj = { ...payload };
   modifiedObj.password = hashPassword;
 
-  const photoUrl = await uploadCloud(file);
-  console.log(photoUrl, "yyyyy");
-  return;
-
   const user = await prisma.user.create({
-    data: modifiedObj,
+    data: { ...modifiedObj, photo: photoUrl || photoUrl.secure_url },
     select: {
       id: true,
       name: true,
       role: true,
+      photo: true,
       email: true,
       createdAt: true,
       updatedAt: true,

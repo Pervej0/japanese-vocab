@@ -31,8 +31,6 @@ export const uploadCloud = async (file: any) => {
         console.log(error);
       });
 
-    console.log(uploadResult, "xxx");
-
     // Optimize delivery by resizing and applying auto-format and auto-quality
     const optimizeUrl = cloudinary.url(file.filename, {
       fetch_format: "auto",
@@ -46,7 +44,7 @@ export const uploadCloud = async (file: any) => {
 
     fs.unlinkSync(file.path);
     console.log("file removed successfully.");
-    console.log(optimizeUrl, "pppppppppp");
+    return optimizeUrl || uploadResult;
   } catch {
     console.log("file removing failed.");
   }
